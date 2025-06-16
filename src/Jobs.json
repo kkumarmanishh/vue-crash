@@ -69,6 +69,20 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
+    },
+    {
+      "id": "312e",
+      "type": "Full-Time",
+      "title": "Web Developer ",
+      "description": "ddd",
+      "salary": "$70K - $80K",
+      "location": "Gurgaon",
+      "company": {
+        "name": "Green Technology wired",
+        "description": "sd",
+        "contactEmail": "startupgtw@gmail.com",
+        "contactPhone": "7896541236"
+      }
     }
   ]
 }
