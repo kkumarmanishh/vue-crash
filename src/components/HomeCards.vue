@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router';
 import Card from '@/components/Card.vue';
 </script>
 
@@ -10,19 +11,19 @@ import Card from '@/components/Card.vue';
                <Card>
                 <h2 class="text-2xl font-bold">For Developers</h2>
                 <p class="mt-2 mb-4">Browse our vue jobs and start your career today</p>
-                <a href="jobs.html"
+                <RouterLink to="/jobs"
                 class="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
                 >
                     Browse Jobs
-                </a>
+                </RouterLink>
                </Card>
                
                <Card bg="bg-red-300">
                 <h2 class="text-2xl font-bold">For Employeers</h2>
                 <p class="mt-2 mb-4">List your jb to find the perfect developer for the role</p>
-                <a href="add-job.html"
+                <RouterLink to="/jobs/add"
                 class="inline-block bg-green-500 text-white rounded-lg px-4 py-2 hover:bg-green-600"
-                >Add Job</a>
+                >Add Job</RouterLink>
                </Card>
             </div>
         </div>

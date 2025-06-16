@@ -1,10 +1,14 @@
 <script setup>
-import jobData from '@/Jobs.json';
-import { ref, defineProps } from 'vue';
+import { reactive, defineProps, onMounted } from 'vue';
 import JobListing from './JobListing.vue';
+import { RouterLink } from 'vue-router';
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue';
+import axios from 'axios';
 
-const jobs = ref(jobData);
-console.log(jobs.value);
+const state = reactive({
+    jobs:[],
+    isLoading:true,
+})
 
 defineProps({
     limit: Number,
@@ -12,6 +16,18 @@ defineProps({
         type: Boolean,
         default: false,
     },
+});
+
+onMounted(async () => {
+    try{
+        const response = await axios.get('/api/jobs');
+        console.log(response);
+        state.jobs=response.data;
+    }catch(err){
+        console.log("Error encountered : ", err);   
+    }finally{
+        state.isLoading=false
+    }
 });
 </script>
 
@@ -21,17 +37,20 @@ defineProps({
             <h2 class="text-3xl font-bold text-green-500 mb-6 text-center">
                 Browse Jobs
             </h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-               <JobListing v-for="job in jobs.slice(0,limit || jobs.length)" :key="job.id" :job="job"/>
+            <!-- for spinner -->
+            <div v-if="state.isLoading" class="text-center text-gray-500 py-6">
+                <PulseLoader/>
+            </div>
+            <!-- for joblisting -->
+            <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <JobListing v-for="job in state.jobs.slice(0, limit || state.jobs.length)" :key="job.id" :job="job" />
             </div>
         </div>
     </section>
 
     <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
-        <a href="jobs.html"
-        class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-        >View All Jobs</a>
+        <RouterLink to="/jobs" class="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700">View
+            All Jobs</RouterLink>
     </section>
 
 </template>
